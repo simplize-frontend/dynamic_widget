@@ -1,0 +1,97 @@
+{
+    "type": "Root",
+    "backgroundImageUrl": "https://cdn.simplize.vn/test/app_popup_test/campaign_background_image.png",
+    "mode": "overlay",
+
+    "display": {
+        "position": "centerRight",
+        "full": true,
+        "dismissible": true
+    },
+    "child": {
+        "type": "Stack",
+        "clipBehavior": "none",
+        "children": [
+            {
+                "type": "Positioned",
+                "top": -32,
+                "right": -32,
+                "child": {
+                    "type": "ContainerWidget",
+                    "padding": "0,16,16,0",
+                    "child": {
+                        "type": "GestureDetectorWidget",
+                        "onClick": "https://simplize.vn/",
+                        "child": {
+                            "type": "Icon",
+                            "data": "close",
+                            "size": 24,
+                            "color": "#EC8000"
+                        }
+                    }
+                }
+            },
+            {
+                "type": "Column",
+                "mainAxisAlignment": "end",
+                "crossAxisAlignment": "start",
+                "children": [
+                    {
+                        "type": "ContainerWidget",
+                        "alignment": "center",
+                        "margin": "0,0,0,40",
+                        "padding": "16,0,16,0",
+                        "width": "expand",
+                        "child": {
+                            "type": "CountdownTimerWidget",
+                            "startDate": "09/06/2025 00:00:00",
+                            "endDate": "18/06/2025 00:00:00",
+                            "format": "dd HH:mm:ss",
+                            "digitDecoration": {
+                                "borderRadius": 4
+                            },
+                            "digitStyle": {
+                                "fontFamily": "Inter",
+                                "fontSize": 24,
+                                "fontWeight": "w700",
+                                "color": "#EC8000"
+                            },
+                            "labelStyle": {
+                                "fontFamily": "Inter",
+                                "fontSize": 10,
+                                "fontWeight": "w600",
+                                "color": "#FFFFFF"
+                            }
+                        }
+                    },
+                    {
+                        "type": "ContainerWidget",
+                        "alignment": "topLeft",
+                        "margin": "0,0,0,0",
+                        "padding": "16,0,16,16",
+                        "child": {
+                            "type": "ButtonWidget",
+                            "textStyle": {
+                                "fontFamily": "Inter",
+                                "fontSize": 16,
+                                "fontWeight": "w700",
+                                "color": "#FFFFFF"
+                            },
+                            "width": "expand",
+                            "height": "56",
+                            "decoration": {
+                                "borderRadius": 28,
+                                "gradient": [
+                                    "#F09933",
+                                    "#BD6600"
+                                ]
+                            },
+                            "text": "Nhận quà ngay",
+                            "onClick": "https://simplize.vn/"
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+}
