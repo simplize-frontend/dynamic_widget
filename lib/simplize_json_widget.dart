@@ -1,5 +1,4 @@
 import 'package:dynamic_widget/dynamic_widget.dart';
-import 'package:dynamic_widget/dynamic_widget/widget/root_widget.dart';
 import 'package:dynamic_widget/dynamic_widget/widget/widget.dart';
 import 'package:flutter/material.dart';
 
