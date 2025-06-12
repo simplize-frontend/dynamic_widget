@@ -20,6 +20,12 @@ extension StringX on String {
     if (contains('topRight')) {
       return Alignment.topRight;
     }
+    if (contains('topCenter')) {
+      return Alignment.topCenter;
+    }
+    if (contains('bottomCenter')) {
+      return Alignment.bottomCenter;
+    }
     if (contains('bottomLeft')) {
       return Alignment.bottomLeft;
     }

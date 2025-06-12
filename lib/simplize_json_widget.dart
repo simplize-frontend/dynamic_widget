@@ -25,7 +25,7 @@ class _SimplizeJsonWidgetState extends State<SimplizeJsonWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: _buildWidget(context, widget.jsonString));
+    return _buildWidget(context, widget.jsonString);
   }
 
   Widget _buildWidget(BuildContext context, String jsonString) {
