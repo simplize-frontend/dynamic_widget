@@ -1,8 +1,9 @@
 {
     "type": "Root",
     "mode": "overlay",
+    "height": "300",
     "display": {
-        "position": "center",
+        "position": "bottomCenter",
         "full": true,
         "dismissible": true
     },

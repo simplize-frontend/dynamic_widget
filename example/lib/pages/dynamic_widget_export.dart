@@ -25,30 +25,46 @@ class _DynamicWidgetExportState extends State<DynamicWidgetExport> {
     if (mounted) {
       rootBundle.loadString('lib/assets/json/countdown.json').then((value) {
         Future.delayed(const Duration(seconds: 3), () async {
-          await showDialog(
-            useRootNavigator: true,
-            barrierColor: Colors.black.withValues(alpha: 0.4),
-            context: context,
-            builder:
-                (context) => Animate(
-                  effects: [FadeEffect(duration: const Duration(milliseconds: 600), curve: Curves.easeInOut)],
-                  child:
-                      DynamicWidgetBuilder.build(
-                        value,
-                        context,
-                        DefaultClickListener(
-                          onClick: (String? url) {
-                            print(url);
-                          },
-                        ),
-                      )!,
-                ),
-          );
+          await _showModal();
         });
       });
     }
 
     super.initState();
+  }
+
+  Future<void> _showDialog(String value) async {
+    await showDialog(
+      useRootNavigator: true,
+      barrierColor: Colors.black.withValues(alpha: 0.4),
+      context: context,
+      builder:
+          (context) => Animate(
+            effects: [FadeEffect(duration: const Duration(milliseconds: 600), curve: Curves.easeInOut)],
+            child:
+                DynamicWidgetBuilder.build(
+                  value,
+                  context,
+                  DefaultClickListener(
+                    onClick: (String? url) {
+                      print(url);
+                    },
+                  ),
+                )!,
+          ),
+    );
+  }
+
+  Future<void> _showModal() async {
+    await showModalBottomSheet(
+      context: context,
+      isDismissible: true,
+      useRootNavigator: true,
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(16.0))),
+      builder: (context) {
+        return Wrap(children: [_getWidget(true)]);
+      },
+    );
   }
 
   @override

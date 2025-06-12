@@ -35,14 +35,9 @@ class Root extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
-    return Scaffold(
-      backgroundColor: Colors.black.withValues(alpha: 0.4),
-      body: SafeArea(
-        child: Align(
-          alignment: alignment ?? Alignment.center,
-          child: SizedBox(height: height ?? size.height, width: width ?? size.width, child: child),
-        ),
-      ),
+    return Align(
+      alignment: alignment ?? Alignment.center,
+      child: SizedBox(height: height ?? size.height, width: width ?? size.width, child: child),
     );
   }
 }
