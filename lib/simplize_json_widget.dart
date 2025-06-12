@@ -18,6 +18,8 @@ class _SimplizeJsonWidgetState extends State<SimplizeJsonWidget> {
     DynamicWidgetBuilder.addParser(ButtonWidgetParser());
     DynamicWidgetBuilder.addParser(ContainerWidgetParser());
     DynamicWidgetBuilder.addParser(GestureDetectorWidgetParser());
+    DynamicWidgetBuilder.addParser(BackgroundImageParser());
+    DynamicWidgetBuilder.addParser(AutoCloseButtonWidgetParser());
     super.initState();
   }
 
