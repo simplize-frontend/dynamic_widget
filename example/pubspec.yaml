@@ -35,6 +35,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   dynamic_widget:
     path: ../
+  flutter_animate: ^4.5.2 
 
 dev_dependencies:
   flutter_test:

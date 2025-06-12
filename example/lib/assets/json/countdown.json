@@ -1,10 +1,8 @@
 {
     "type": "Root",
-    "backgroundImageUrl": "https://cdn.simplize.vn/test/app_popup_test/campaign_background_image.png",
     "mode": "overlay",
-
     "display": {
-        "position": "centerRight",
+        "position": "center",
         "full": true,
         "dismissible": true
     },
@@ -13,20 +11,44 @@
         "clipBehavior": "none",
         "children": [
             {
+                "type": "BackgroundImageWidget",
+                "imageUrl": "https://cdn.simplize.vn/test/app_popup_test/campaign_background_image.png"
+            },
+            {
                 "type": "Positioned",
-                "top": -32,
-                "right": -32,
+                "top": 0,
+                "right": 0,
                 "child": {
                     "type": "ContainerWidget",
-                    "padding": "0,16,16,0",
+                    "height": "24",
+                    "margin": "0,16,16,0",
+                    "padding": "8,2,8,2",
+                    "decoration": {
+                        "borderRadius": 8,
+                        "color": "#F09933",
+                        "border": {
+                            "color": "#FFFFFF",
+                            "width": 1
+                        }
+                    },
                     "child": {
                         "type": "GestureDetectorWidget",
                         "onClick": "https://simplize.vn/",
                         "child": {
-                            "type": "Icon",
-                            "data": "close",
-                            "size": 24,
-                            "color": "#EC8000"
+                            "type": "AutoCloseButtonWidget",
+                            "closeAfter": 10,
+                            "gap": "2",
+                            "closeIcon": {
+                                "type": "Icon",
+                                "icon": "close",
+                                "size": 8,
+                                "color": "#FFFFFF"
+                            },
+                            "textStyle": {
+                                "fontFamily": "Inter",
+                                "color": "#FFFFFF",
+                                "fontSize": 8
+                            }
                         }
                     }
                 }

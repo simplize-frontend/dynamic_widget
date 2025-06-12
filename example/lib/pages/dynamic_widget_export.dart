@@ -1,8 +1,9 @@
-import 'package:dynamic_widget/dynamic_widget.dart';
 import 'package:dynamic_widget/dynamic_widget/widget/widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:dynamic_widget/dynamic_widget.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:flutter_animate/flutter_animate.dart';
 
 class DynamicWidgetExport extends StatefulWidget {
   const DynamicWidgetExport({super.key});
@@ -18,12 +19,41 @@ class _DynamicWidgetExportState extends State<DynamicWidgetExport> {
     DynamicWidgetBuilder.addParser(ButtonWidgetParser());
     DynamicWidgetBuilder.addParser(ContainerWidgetParser());
     DynamicWidgetBuilder.addParser(GestureDetectorWidgetParser());
+    DynamicWidgetBuilder.addParser(BackgroundImageParser());
+    DynamicWidgetBuilder.addParser(AutoCloseButtonWidgetParser());
+
+    if (mounted) {
+      rootBundle.loadString('lib/assets/json/countdown.json').then((value) {
+        Future.delayed(const Duration(seconds: 3), () async {
+          await showDialog(
+            useRootNavigator: true,
+            barrierColor: Colors.black.withValues(alpha: 0.4),
+            context: context,
+            builder:
+                (context) => Animate(
+                  effects: [FadeEffect(duration: const Duration(milliseconds: 600), curve: Curves.easeInOut)],
+                  child:
+                      DynamicWidgetBuilder.build(
+                        value,
+                        context,
+                        DefaultClickListener(
+                          onClick: (String? url) {
+                            print(url);
+                          },
+                        ),
+                      )!,
+                ),
+          );
+        });
+      });
+    }
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: _getWidget(true));
+    return Scaffold(body: Placeholder(), backgroundColor: Colors.red);
   }
 
   Widget _getWidget(bool isJson) {
@@ -39,7 +69,6 @@ class _DynamicWidgetExportState extends State<DynamicWidgetExport> {
       );
     }
     return Root(
-      backgroundImageUrl: "https://cdn.simplize.vn/test/app_popup_test/campaign_background_image.png",
       child: Stack(
         children: [
           Positioned(
@@ -73,8 +102,8 @@ class _DynamicWidgetExportState extends State<DynamicWidgetExport> {
             jsonString,
             context,
             DefaultClickListener(
-              onClick: (map) {
-                print(map);
+              onClick: (String? url) {
+                print(url);
               },
             ),
           ) ??
