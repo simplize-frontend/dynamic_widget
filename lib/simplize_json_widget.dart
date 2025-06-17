@@ -3,8 +3,9 @@ import 'package:dynamic_widget/dynamic_widget/widget/widget.dart';
 import 'package:flutter/material.dart';
 
 class SimplizeJsonWidget extends StatefulWidget {
-  const SimplizeJsonWidget({super.key, required this.jsonString, required this.listener});
+  const SimplizeJsonWidget({super.key, required this.jsonString, required this.listener, this.onDispose});
   final String jsonString;
+  final Function()? onDispose;
   final ClickListener listener;
   @override
   State<SimplizeJsonWidget> createState() => _SimplizeJsonWidgetState();
@@ -21,6 +22,12 @@ class _SimplizeJsonWidgetState extends State<SimplizeJsonWidget> {
     DynamicWidgetBuilder.addParser(BackgroundImageParser());
     DynamicWidgetBuilder.addParser(AutoCloseButtonWidgetParser());
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    widget.onDispose?.call();
+    super.dispose();
   }
 
   @override
