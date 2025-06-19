@@ -7,13 +7,14 @@ class ContainerWidgetParser extends WidgetParser {
   @override
   Widget parse(Map<String, dynamic> map, BuildContext context, ClickListener? listener) {
     return ContainerWidget(
-      decoration: map['decoration'] != null ? BoxDecorationX.fromJson(map['decoration']) : null,
+      decoration: map['decoration'] != null || map['color'] != null
+          ? BoxDecorationX.fromJson(map['decoration'], color: map['color'])
+          : null,
       width: map['width'] != null ? (map['width'] as String).getSizeFromString() : null,
       height: map['height'] != null ? (map['height'] as String).getSizeFromString() : null,
       alignment: map['alignment'] != null ? (map['alignment'] as String).getAlignmentFromString() : null,
       margin: map['margin'] != null ? (map['margin'] as String).getEdgeInsetsFromString() : null,
       padding: map['padding'] != null ? (map['padding'] as String).getEdgeInsetsFromString() : null,
-      color: map['color'] != null ? (map['color'] as String).getColorFromString() : null,
       child: DynamicWidgetBuilder.buildFromMap(map['child'], context, listener) ?? const SizedBox.shrink(),
     );
   }

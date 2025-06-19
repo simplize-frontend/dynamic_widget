@@ -3,9 +3,9 @@ import 'package:dynamic_widget/dynamic_widget/extension/string_extension.dart';
 import 'package:flutter/material.dart';
 
 extension BoxDecorationX on BoxDecoration {
-  static BoxDecoration fromJson(Map<String, dynamic> map) {
+  static BoxDecoration fromJson(Map<String, dynamic> map, {String? color}) {
     return BoxDecoration(
-      color: HexColor.fromHex(map['color']),
+      color: color != null ? HexColor.fromHex(color) : HexColor.fromHex(map['color']),
       borderRadius: map['borderRadius'] != null ? (map['borderRadius'] as String).getBorderRadiusFromString() : null,
       gradient: GradientX.fromJson(map['gradient']),
       boxShadow: map['boxShadow']?.map((e) => BoxShadowX.fromJson(e)).toList(),
