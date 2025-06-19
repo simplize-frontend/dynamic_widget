@@ -1,4 +1,5 @@
 import 'package:dynamic_widget/dynamic_widget.dart';
+import 'package:dynamic_widget/dynamic_widget/widget/spacer_widget.dart';
 import 'package:dynamic_widget/dynamic_widget/widget/widget.dart';
 import 'package:flutter/material.dart';
 
@@ -21,6 +22,7 @@ class _SimplizeJsonWidgetState extends State<SimplizeJsonWidget> {
     DynamicWidgetBuilder.addParser(GestureDetectorWidgetParser());
     DynamicWidgetBuilder.addParser(BackgroundImageParser());
     DynamicWidgetBuilder.addParser(AutoCloseButtonWidgetParser());
+    DynamicWidgetBuilder.addParser(SpacerWidgetParser());
     super.initState();
   }
 

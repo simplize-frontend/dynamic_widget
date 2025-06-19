@@ -1,120 +1,85 @@
 {
     "type": "Root",
+    "displayTime": 1000,
     "mode": "overlay",
-    "height": "300",
+    "transition": "slide",
+    "transitionFrom": "top",
+    "borderRadius": "0,0,0,0",
     "display": {
-        "position": "bottomCenter",
-        "full": true,
-        "dismissible": true
+      "full": false,
+      "position": "topCenter",
+      "width": "350",
+      "height": "100"
     },
     "child": {
-        "type": "Stack",
-        "clipBehavior": "none",
-        "children": [
+      "type": "Expanded",
+      "flex": 1,
+      "child": {
+        "type": "Padding",
+        "padding": "0,0,0,0",
+        "child": {
+          "type": "Column",
+          "mainAxisAlignment": "start",
+          "crossAxisAlignment": "end",
+          "mainAxisSize": "max",
+          "children": [
             {
-                "type": "BackgroundImageWidget",
-                "imageUrl": "https://cdn.simplize.vn/test/app_popup_test/campaign_background_image.png"
-            },
-            {
-                "type": "Positioned",
-                "top": 0,
-                "right": 0,
+              "type": "ClipRRect",
+              "borderRadius": "18,18,18,18",
+              "clipBehavior": "hardEdge",
+              "child": {
+                "type": "Expanded",
+                "flex": 1,
                 "child": {
-                    "type": "ContainerWidget",
-                    "height": "24",
-                    "margin": "0,16,16,0",
-                    "padding": "8,2,8,2",
-                    "decoration": {
-                        "borderRadius": 8,
-                        "color": "#F09933",
-                        "border": {
-                            "color": "#FFFFFF",
-                            "width": 1
-                        }
-                    },
-                    "child": {
-                        "type": "GestureDetectorWidget",
-                        "onClick": "https://simplize.vn/",
-                        "child": {
-                            "type": "AutoCloseButtonWidget",
-                            "closeAfter": 10,
-                            "gap": "2",
-                            "closeIcon": {
-                                "type": "Icon",
-                                "icon": "close",
-                                "size": 8,
-                                "color": "#FFFFFF"
-                            },
-                            "textStyle": {
-                                "fontFamily": "Inter",
-                                "color": "#FFFFFF",
-                                "fontSize": 8
-                            }
-                        }
-                    }
-                }
-            },
-            {
-                "type": "Column",
-                "mainAxisAlignment": "end",
-                "crossAxisAlignment": "start",
-                "children": [
-                    {
+                  "type": "ContainerWidget",
+                  "margin": "0,40,0,0",
+                  "padding": "0,0,0,0",
+                  "color": "#b6fff9",
+                  "child": {
+                    "type": "Row",
+                    "mainAxisAlignment": "center",
+                    "crossAxisAlignment": "center",
+                    "mainAxisSize": "max",
+                    "children": [
+                      {
                         "type": "ContainerWidget",
-                        "alignment": "center",
-                        "margin": "0,0,0,40",
-                        "padding": "16,0,16,0",
-                        "width": "expand",
+                        "margin": "0,0,8,0",
+                        "padding": "0,0,0,0",
                         "child": {
-                            "type": "CountdownTimerWidget",
-                            "startDate": "09/06/2025 00:00:00",
-                            "endDate": "18/06/2025 00:00:00",
-                            "format": "dd HH:mm:ss",
-                            "digitDecoration": {
-                                "borderRadius": 4
-                            },
-                            "digitStyle": {
-                                "fontFamily": "Inter",
-                                "fontSize": 24,
-                                "fontWeight": "w700",
-                                "color": "#EC8000"
-                            },
-                            "labelStyle": {
-                                "fontFamily": "Inter",
-                                "fontSize": 10,
-                                "fontWeight": "w600",
-                                "color": "#FFFFFF"
-                            }
+                          "type": "Image",
+                          "src": "https://static.simplize.vn/static/fe/imgs/StockAnalysisIcon.png",
+                          "width": "24",
+                          "height": "24"
                         }
-                    },
-                    {
+                      },
+                      {
                         "type": "ContainerWidget",
-                        "alignment": "topLeft",
                         "margin": "0,0,0,0",
-                        "padding": "16,0,16,16",
+                        "padding": "0,0,4,0",
                         "child": {
-                            "type": "ButtonWidget",
-                            "textStyle": {
-                                "fontFamily": "Inter",
-                                "fontSize": 16,
-                                "fontWeight": "w700",
-                                "color": "#FFFFFF"
-                            },
-                            "width": "expand",
-                            "height": "56",
-                            "decoration": {
-                                "borderRadius": 28,
-                                "gradient": [
-                                    "#F09933",
-                                    "#BD6600"
-                                ]
-                            },
-                            "text": "Nhận quà ngay",
-                            "onClick": "https://simplize.vn/"
+                          "type": "Text",
+                          "text": "Thông báo: ",
+                          "color": "#0172ff",
+                          "fontFamily": "Inter",
+                          "fontSize": 16,
+                          "fontWeight": "w700"
                         }
-                    }
-                ]
+                      },
+                      {
+                        "type": "Text",
+                        "text": "Đây là thông báo demo",
+                        "fontFamily": "Inter",
+                        "fontSize": 16,
+                        "fontWeight": "w700",
+                        "color": "#000000"
+                      }
+                    ]
+                  }
+                }
+              }
             }
-        ]
+          ]
+        }
+      }
     }
-}
+  }

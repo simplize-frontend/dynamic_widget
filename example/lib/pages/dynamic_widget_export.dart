@@ -1,3 +1,4 @@
+import 'package:dynamic_widget/dynamic_widget/widget/spacer_widget.dart';
 import 'package:dynamic_widget/dynamic_widget/widget/widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -21,11 +22,12 @@ class _DynamicWidgetExportState extends State<DynamicWidgetExport> {
     DynamicWidgetBuilder.addParser(GestureDetectorWidgetParser());
     DynamicWidgetBuilder.addParser(BackgroundImageParser());
     DynamicWidgetBuilder.addParser(AutoCloseButtonWidgetParser());
+    DynamicWidgetBuilder.addParser(SpacerWidgetParser());
 
     if (mounted) {
       rootBundle.loadString('lib/assets/json/countdown.json').then((value) {
         Future.delayed(const Duration(seconds: 3), () async {
-          await _showModal();
+          await _showDialog(value);
         });
       });
     }
