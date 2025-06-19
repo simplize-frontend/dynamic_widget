@@ -69,6 +69,7 @@ class _AutoCloseButtonWidgetState extends State<AutoCloseButtonWidget> {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
       spacing: widget.gap,
       children: [
         if (_countDown > 0) ...[Text("Đóng sau $_countDown giây", style: widget.textStyle)],
