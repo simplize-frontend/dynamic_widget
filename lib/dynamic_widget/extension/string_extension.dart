@@ -59,4 +59,16 @@ extension StringX on String {
   Color? getColorFromString() {
     return HexColor.fromHex(this);
   }
+
+  BorderRadius? getBorderRadiusFromString() {
+    if (contains('0,0,0,0')) {
+      return BorderRadius.zero;
+    }
+    return BorderRadius.only(
+      topLeft: Radius.circular(double.parse(split(',')[0])),
+      topRight: Radius.circular(double.parse(split(',')[1])),
+      bottomLeft: Radius.circular(double.parse(split(',')[2])),
+      bottomRight: Radius.circular(double.parse(split(',')[3])),
+    );
+  }
 }

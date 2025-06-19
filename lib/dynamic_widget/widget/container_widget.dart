@@ -1,3 +1,4 @@
+import 'package:dynamic_widget/dynamic_widget/extension/box_decoration_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:dynamic_widget/dynamic_widget.dart';
 import 'package:dynamic_widget/dynamic_widget/extension/string_extension.dart';
@@ -6,6 +7,7 @@ class ContainerWidgetParser extends WidgetParser {
   @override
   Widget parse(Map<String, dynamic> map, BuildContext context, ClickListener? listener) {
     return ContainerWidget(
+      decoration: map['decoration'] != null ? BoxDecorationX.fromJson(map['decoration']) : null,
       width: map['width'] != null ? (map['width'] as String).getSizeFromString() : null,
       height: map['height'] != null ? (map['height'] as String).getSizeFromString() : null,
       alignment: map['alignment'] != null ? (map['alignment'] as String).getAlignmentFromString() : null,
@@ -38,6 +40,7 @@ class ContainerWidget extends StatelessWidget {
     this.margin,
     this.padding,
     this.color,
+    this.decoration,
   });
 
   final Widget child;
@@ -47,10 +50,12 @@ class ContainerWidget extends StatelessWidget {
   final EdgeInsets? margin;
   final EdgeInsets? padding;
   final Color? color;
+  final BoxDecoration? decoration;
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      decoration: decoration,
       width: width,
       height: height,
       alignment: alignment,
