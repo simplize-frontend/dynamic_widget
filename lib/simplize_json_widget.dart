@@ -34,7 +34,10 @@ class _SimplizeJsonWidgetState extends State<SimplizeJsonWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return _buildWidget(context, widget.jsonString);
+    return Material(
+      color: Colors.transparent,
+      child: _buildWidget(context, widget.jsonString),
+    );
   }
 
   Widget _buildWidget(BuildContext context, String jsonString) {
