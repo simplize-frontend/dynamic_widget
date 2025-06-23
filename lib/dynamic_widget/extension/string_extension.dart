@@ -2,13 +2,13 @@ import 'package:dynamic_widget/dynamic_widget/extension/color_extension.dart';
 import 'package:flutter/widgets.dart';
 
 extension StringX on String {
-  double getSizeFromString() {
+  double? getSizeFromString() {
     bool isNum = num.tryParse(this) != null;
     if (isNum) {
       return double.parse(this);
     }
     if (contains('auto')) {
-      return double.maxFinite;
+      return null;
     }
     return double.infinity;
   }
