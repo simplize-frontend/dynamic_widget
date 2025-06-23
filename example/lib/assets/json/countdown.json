@@ -1,85 +1,35 @@
 {
     "type": "Root",
     "displayTime": 1000,
-    "mode": "overlay",
-    "transition": "slide",
+    "mode": "modal",
+    "width": "76",
+    "height": "56",
+    "transition": "fade",
     "transitionFrom": "top",
     "borderRadius": "0,0,0,0",
     "display": {
       "full": false,
-      "position": "topCenter",
-      "width": "350",
-      "height": "100"
+      "position": "centerRight"
     },
     "child": {
-      "type": "Expanded",
-      "flex": 1,
+      "type": "Padding",
+      "padding": "0,0,20,0",
       "child": {
-        "type": "Padding",
-        "padding": "0,0,0,0",
-        "child": {
-          "type": "Column",
-          "mainAxisAlignment": "start",
-          "crossAxisAlignment": "end",
-          "mainAxisSize": "max",
-          "children": [
-            {
-              "type": "ClipRRect",
-              "borderRadius": "18,18,18,18",
-              "clipBehavior": "hardEdge",
-              "child": {
-                "type": "Expanded",
-                "flex": 1,
-                "child": {
-                  "type": "ContainerWidget",
-                  "margin": "0,40,0,0",
-                  "padding": "0,0,0,0",
-                  "color": "#b6fff9",
-                  "child": {
-                    "type": "Row",
-                    "mainAxisAlignment": "center",
-                    "crossAxisAlignment": "center",
-                    "mainAxisSize": "max",
-                    "children": [
-                      {
-                        "type": "ContainerWidget",
-                        "margin": "0,0,8,0",
-                        "padding": "0,0,0,0",
-                        "child": {
-                          "type": "Image",
-                          "src": "https://static.simplize.vn/static/fe/imgs/StockAnalysisIcon.png",
-                          "width": "24",
-                          "height": "24"
-                        }
-                      },
-                      {
-                        "type": "ContainerWidget",
-                        "margin": "0,0,0,0",
-                        "padding": "0,0,4,0",
-                        "child": {
-                          "type": "Text",
-                          "text": "Thông báo: ",
-                          "color": "#0172ff",
-                          "fontFamily": "Inter",
-                          "fontSize": 16,
-                          "fontWeight": "w700"
-                        }
-                      },
-                      {
-                        "type": "Text",
-                        "text": "Đây là thông báo demo",
-                        "fontFamily": "Inter",
-                        "fontSize": 16,
-                        "fontWeight": "w700",
-                        "color": "#000000"
-                      }
-                    ]
-                  }
-                }
-              }
+        "type": "Column",
+        "mainAxisAlignment": "start",
+        "crossAxisAlignment": "end",
+        "mainAxisSize": "max",
+        "children": [
+          {
+            "type": "SizedBox",
+            "width": "56",
+            "height": "56",
+            "child": {
+              "type": "NetworkImageWidget",
+              "imageUrl": "https://static.simplize.vn/static/fe/imgs/pricing2.png"
             }
-          ]
-        }
+          }
+        ]
       }
     }
   }

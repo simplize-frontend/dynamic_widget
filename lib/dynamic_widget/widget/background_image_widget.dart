@@ -3,17 +3,17 @@ import 'package:dynamic_widget/dynamic_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class BackgroundImageParser extends WidgetParser {
+class NetworkImageParser extends WidgetParser {
   @override
   Widget parse(Map<String, dynamic> map, BuildContext buildContext, ClickListener? listener) {
-    return BackgroundImageWidget(imageUrl: map['imageUrl']);
+    return NetworkImageWidget(imageUrl: map['imageUrl']);
   }
 
   @override
-  String get widgetName => 'BackgroundImageWidget';
+  String get widgetName => 'NetworkImageWidget';
 
   @override
-  Type get widgetType => BackgroundImageWidget;
+  Type get widgetType => NetworkImageWidget;
 
   @override
   Map<String, dynamic>? export(Widget? widget, BuildContext? buildContext) {
@@ -21,16 +21,16 @@ class BackgroundImageParser extends WidgetParser {
   }
 }
 
-class BackgroundImageWidget extends StatefulWidget {
-  const BackgroundImageWidget({super.key, required this.imageUrl});
+class NetworkImageWidget extends StatefulWidget {
+  const NetworkImageWidget({super.key, required this.imageUrl});
 
   final String imageUrl;
 
   @override
-  State<BackgroundImageWidget> createState() => _BackgroundImageWidgetState();
+  State<NetworkImageWidget> createState() => _NetworkImageWidgetState();
 }
 
-class _BackgroundImageWidgetState extends State<BackgroundImageWidget> {
+class _NetworkImageWidgetState extends State<NetworkImageWidget> {
   Key _key = UniqueKey();
   String _url = "";
   @override

@@ -6,6 +6,23 @@ import 'package:dynamic_widget/dynamic_widget.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_animate/flutter_animate.dart';
 
+abstract class TransitionFrom {
+  static const top = 'top';
+  static const bottom = 'bottom';
+  static const left = 'left';
+  static const right = 'right';
+}
+
+abstract class TransitionType {
+  static const slide = 'slide';
+  static const fade = 'fade';
+}
+
+abstract class PopUpMode {
+  static const overlay = 'overlay';
+  static const modal = 'modal';
+}
+
 class DynamicWidgetExport extends StatefulWidget {
   const DynamicWidgetExport({super.key});
   @override
@@ -20,7 +37,7 @@ class _DynamicWidgetExportState extends State<DynamicWidgetExport> {
     DynamicWidgetBuilder.addParser(ButtonWidgetParser());
     DynamicWidgetBuilder.addParser(ContainerWidgetParser());
     DynamicWidgetBuilder.addParser(GestureDetectorWidgetParser());
-    DynamicWidgetBuilder.addParser(BackgroundImageParser());
+    DynamicWidgetBuilder.addParser(NetworkImageParser());
     DynamicWidgetBuilder.addParser(AutoCloseButtonWidgetParser());
     DynamicWidgetBuilder.addParser(SpacerWidgetParser());
 
@@ -36,13 +53,42 @@ class _DynamicWidgetExportState extends State<DynamicWidgetExport> {
   }
 
   Future<void> _showDialog(String value) async {
+    // List<Effect> effects = [];
+    //     if (transition == TransitionType.slide) {
+    //       effects.add(
+    //         SlideEffect(
+    //           begin: _getBeginOffset(transitionFrom),
+    //           end: Offset.zero,
+    //           curve: Curves.easeOut,
+    //           duration: const Duration(milliseconds: 300),
+    //         ),
+    //       );
+    //     } else {
+    //       effects.add(const FadeEffect(curve: Curves.easeOut));
+    //     }
+    //     return Animate(
+    //       effects: effects,
+    //       child: GestureDetector(
+    //         onTap: () {
+    //           navigationService.pop();
+    //         },
+    //         child: SafeArea(child: popupWidget),
+    //       ),
+    //     );
     await showDialog(
       useRootNavigator: true,
       barrierColor: Colors.black.withValues(alpha: 0.4),
       context: context,
       builder:
           (context) => Animate(
-            effects: [FadeEffect(duration: const Duration(milliseconds: 600), curve: Curves.easeInOut)],
+            effects: [
+              SlideEffect(
+                begin: _getBeginOffset("top"),
+                end: Offset.zero,
+                curve: Curves.easeOut,
+                duration: const Duration(milliseconds: 300),
+              ),
+            ],
             child:
                 DynamicWidgetBuilder.build(
                   value,
@@ -55,6 +101,21 @@ class _DynamicWidgetExportState extends State<DynamicWidgetExport> {
                 )!,
           ),
     );
+  }
+
+  Offset _getBeginOffset(String transitionFrom) {
+    switch (transitionFrom) {
+      case TransitionFrom.top:
+        return const Offset(0, -1);
+      case TransitionFrom.bottom:
+        return const Offset(0, 1);
+      case TransitionFrom.left:
+        return const Offset(-1, 0);
+      case TransitionFrom.right:
+        return const Offset(1, 0);
+      default:
+        return const Offset(0, -1);
+    }
   }
 
   Future<void> _showModal() async {

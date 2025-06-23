@@ -34,10 +34,9 @@ class Root extends StatelessWidget {
   final Alignment? alignment;
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.sizeOf(context);
     return Align(
       alignment: alignment ?? Alignment.center,
-      child: SizedBox(height: height ?? size.height, width: width ?? size.width, child: child),
+      child: SizedBox(height: height, width: width, child: child),
     );
   }
 }
