@@ -2,7 +2,6 @@ library dynamic_widget;
 
 import 'dart:convert';
 
-import 'package:dynamic_widget/dynamic_widget/basic/align_widget_parser.dart';
 import 'package:dynamic_widget/dynamic_widget/basic/appbar_widget_parser.dart';
 import 'package:dynamic_widget/dynamic_widget/basic/aspectratio_widget_parser.dart';
 import 'package:dynamic_widget/dynamic_widget/basic/baseline_widget_parser.dart';
@@ -10,7 +9,6 @@ import 'package:dynamic_widget/dynamic_widget/basic/button_widget_parser.dart';
 import 'package:dynamic_widget/dynamic_widget/basic/card_widget_parser.dart';
 import 'package:dynamic_widget/dynamic_widget/basic/center_widget_parser.dart';
 import 'package:dynamic_widget/dynamic_widget/basic/colored_box_widget_parser.dart';
-import 'package:dynamic_widget/dynamic_widget/basic/container_widget_parser.dart';
 import 'package:dynamic_widget/dynamic_widget/basic/divider_widget_parser.dart';
 import 'package:dynamic_widget/dynamic_widget/basic/dropcaptext_widget_parser.dart';
 import 'package:dynamic_widget/dynamic_widget/basic/dynamic_widget_json_exportor.dart';
@@ -47,12 +45,12 @@ import 'package:jsf/jsf.dart';
 import 'dynamic_widget/basic/cliprrect_widget_parser.dart';
 import 'dynamic_widget/basic/overflowbox_widget_parser.dart';
 import 'dynamic_widget/basic/rotatedbox_widget_parser.dart';
+import 'dynamic_widget/widget/widget.dart';
 
 class DynamicWidgetBuilder {
   static final Logger log = Logger('DynamicWidget');
 
   static final _parsers = [
-    ContainerWidgetParser(),
     TextWidgetParser(),
     SelectableTextWidgetParser(),
     RowWidgetParser(),
@@ -66,7 +64,6 @@ class DynamicWidgetBuilder {
     ExpandedWidgetParser(),
     PaddingWidgetParser(),
     CenterWidgetParser(),
-    AlignWidgetParser(),
     AspectRatioWidgetParser(),
     FittedBoxWidgetParser(),
     BaselineWidgetParser(),
@@ -97,6 +94,16 @@ class DynamicWidgetBuilder {
     RepaintBoundaryWidgetParser(),
     SvgPictureWidgetParser(),
     NetworkSvgPictureWidgetParser(),
+    RootParser(),
+    CountdownWidgetParser(),
+    ButtonWidgetParser(),
+    ContainerWidgetParser(),
+    GestureDetectorWidgetParser(),
+    NetworkImageParser(),
+    AutoCloseButtonWidgetParser(),
+    SpacerWidgetParser(),
+    AlignWidgetParser(),
+    FlexibleWidgetParser(),
   ];
 
   static final _widgetNameParserMap = <String, WidgetParser>{};

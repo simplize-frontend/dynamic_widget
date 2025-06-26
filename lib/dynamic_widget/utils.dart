@@ -2,6 +2,17 @@ import 'package:dynamic_widget/dynamic_widget.dart';
 import 'package:dynamic_widget/dynamic_widget/drop_cap_text.dart';
 import 'package:flutter/widgets.dart';
 
+FlexFit parseFlexFit(String? flexFitString) {
+  switch (flexFitString) {
+    case "tight":
+      return FlexFit.tight;
+    case "loose":
+      return FlexFit.loose;
+    default:
+      return FlexFit.loose;
+  }
+}
+
 TextAlign parseTextAlign(String? textAlignString) {
   //left the system decide
   TextAlign textAlign = TextAlign.start;
@@ -238,8 +249,7 @@ TextStyle? parseTextStyle(Map<String, dynamic>? map) {
   String? fontFamily = map['fontFamily'];
   double? fontSize = map['fontSize']?.toDouble();
   String? fontWeight = map['fontWeight'];
-  FontStyle fontStyle =
-      'italic' == map['fontStyle'] ? FontStyle.italic : FontStyle.normal;
+  FontStyle fontStyle = 'italic' == map['fontStyle'] ? FontStyle.italic : FontStyle.normal;
 
   return TextStyle(
     color: parseHexColor(color),
@@ -258,9 +268,7 @@ Map<String, dynamic>? exportTextStyle(TextStyle? textStyle) {
   }
 
   return <String, dynamic>{
-    "color": textStyle.color != null
-        ? textStyle.color!.toARGB32().toRadixString(16)
-        : null,
+    "color": textStyle.color != null ? textStyle.color!.toARGB32().toRadixString(16) : null,
     "debugLabel": textStyle.debugLabel,
     "decoration": exportTextDecoration(textStyle.decoration),
     "fontSize": textStyle.fontSize,
@@ -339,8 +347,7 @@ Alignment? parseAlignment(String? alignmentString) {
 }
 
 AlignmentGeometry? parseAlignmentGeometry(String? alignmentString) {
-  return parseAlignmentDirectional(alignmentString) ??
-      parseAlignment(alignmentString);
+  return parseAlignmentDirectional(alignmentString) ?? parseAlignment(alignmentString);
 }
 
 const double infinity = 9999999999;
@@ -411,8 +418,7 @@ BoxConstraints parseBoxConstraints(Map<String, dynamic>? map) {
 
 EdgeInsetsGeometry? parseEdgeInsetsGeometry(String? edgeInsetsGeometryString) {
   //left,top,right,bottom
-  if (edgeInsetsGeometryString == null ||
-      edgeInsetsGeometryString.trim() == '') {
+  if (edgeInsetsGeometryString == null || edgeInsetsGeometryString.trim() == '') {
     return null;
   }
   var values = edgeInsetsGeometryString.split(",");
@@ -498,14 +504,10 @@ MainAxisSize parseMainAxisSize(String? mainAxisSizeString) =>
     mainAxisSizeString == 'min' ? MainAxisSize.min : MainAxisSize.max;
 
 TextBaseline parseTextBaseline(String? parseTextBaselineString) =>
-    'alphabetic' == parseTextBaselineString
-        ? TextBaseline.alphabetic
-        : TextBaseline.ideographic;
+    'alphabetic' == parseTextBaselineString ? TextBaseline.alphabetic : TextBaseline.ideographic;
 
 VerticalDirection parseVerticalDirection(String? verticalDirectionString) =>
-    'up' == verticalDirectionString
-        ? VerticalDirection.up
-        : VerticalDirection.down;
+    'up' == verticalDirectionString ? VerticalDirection.up : VerticalDirection.down;
 
 String? exportBlendMode(BlendMode? blendMode) {
   if (blendMode == null) {
@@ -760,8 +762,8 @@ Rect? parseRect(String? fromLTRBString) {
     return null;
   }
   var strings = fromLTRBString.split(',');
-  return Rect.fromLTRB(double.parse(strings[0]), double.parse(strings[1]),
-      double.parse(strings[2]), double.parse(strings[3]));
+  return Rect.fromLTRB(
+      double.parse(strings[0]), double.parse(strings[1]), double.parse(strings[2]), double.parse(strings[3]));
 }
 
 String exportRect(Rect rect) {
@@ -810,17 +812,9 @@ String? getLoadMoreUrl(String? url, int currentNo, int? pageSize) {
 
   url = url.trim();
   if (url.contains("?")) {
-    url = url +
-        "&startNo=" +
-        currentNo.toString() +
-        "&pageSize=" +
-        pageSize.toString();
+    url = url + "&startNo=" + currentNo.toString() + "&pageSize=" + pageSize.toString();
   } else {
-    url = url +
-        "?startNo=" +
-        currentNo.toString() +
-        "&pageSize=" +
-        pageSize.toString();
+    url = url + "?startNo=" + currentNo.toString() + "&pageSize=" + pageSize.toString();
   }
   return url;
 }
@@ -1056,21 +1050,18 @@ String exportDropCapPosition(DropCapPosition? dropCapPosition) {
   return rt;
 }
 
-DropCap? parseDropCap(Map<String, dynamic>? map, BuildContext buildContext,
-    ClickListener? listener) {
+DropCap? parseDropCap(Map<String, dynamic>? map, BuildContext buildContext, ClickListener? listener) {
   if (map == null) {
     return null;
   }
   return DropCap(
     width: map['width']?.toDouble(),
     height: map['height']?.toDouble(),
-    child:
-        DynamicWidgetBuilder.buildFromMap(map["child"], buildContext, listener),
+    child: DynamicWidgetBuilder.buildFromMap(map["child"], buildContext, listener),
   );
 }
 
-Map<String, dynamic>? exportDropCap(
-    DropCap? dropCap, BuildContext? buildContext) {
+Map<String, dynamic>? exportDropCap(DropCap? dropCap, BuildContext? buildContext) {
   if (dropCap == null) {
     return null;
   }
@@ -1144,13 +1135,9 @@ String? exportAlignment(AlignmentGeometry? alignmentGeometry) {
 Map<String, dynamic> exportConstraints(BoxConstraints constraints) {
   return {
     'minWidth': constraints.minWidth,
-    'maxWidth': constraints.maxWidth == double.infinity
-        ? infinity
-        : constraints.maxWidth,
+    'maxWidth': constraints.maxWidth == double.infinity ? infinity : constraints.maxWidth,
     'minHeight': constraints.minHeight,
-    'maxHeight': constraints.maxHeight == double.infinity
-        ? infinity
-        : constraints.maxHeight,
+    'maxHeight': constraints.maxHeight == double.infinity ? infinity : constraints.maxHeight,
   };
 }
 
