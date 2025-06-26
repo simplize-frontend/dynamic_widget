@@ -42,11 +42,11 @@ class _DynamicWidgetExportState extends State<DynamicWidgetExport> {
     DynamicWidgetBuilder.addParser(SpacerWidgetParser());
 
     if (mounted) {
-      rootBundle.loadString('lib/assets/json/countdown.json').then((value) {
-        Future.delayed(const Duration(seconds: 3), () async {
-          await _showDialog(value);
-        });
-      });
+      // rootBundle.loadString('lib/assets/json/countdown.json').then((value) {
+      //   Future.delayed(const Duration(seconds: 3), () async {
+      //     await _showDialog(value);
+      //   });
+      // });
     }
 
     super.initState();
@@ -132,7 +132,14 @@ class _DynamicWidgetExportState extends State<DynamicWidgetExport> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Placeholder(), backgroundColor: Colors.red);
+    return Scaffold(
+      body: CountdownTimerWidget(
+        startDate: "26/06/2025 14:00:00",
+        endDate: "26/06/2025 14:02:00",
+        displayField: "dd,HH,mm,ss",
+      ),
+      backgroundColor: Colors.red,
+    );
   }
 
   Widget _getWidget(bool isJson) {

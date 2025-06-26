@@ -25,7 +25,8 @@ class CountdownWidgetParser extends WidgetParser {
       labelStyle: (map['labelStyle'] as Map<String, dynamic>?)?.getTextStyleFromJson(),
       colonStyle: (map['colonStyle'] as Map<String, dynamic>?)?.getTextStyleFromJson(),
       hasColon: map['hasColon'] ?? true,
-      format: map['format'] ?? 'dd HH:mm:ss',
+      displayField: map['displayField'] ?? 'dd,HH,mm,ss',
+      hideField: map['hideField'] ?? '',
     );
   }
 
@@ -41,7 +42,8 @@ class CountdownTimerWidget extends StatefulWidget {
   final TextStyle? colonStyle;
   final BoxDecoration? digitDecoration;
   final bool hasColon;
-  final String format;
+  final String displayField;
+  final String hideField;
 
   const CountdownTimerWidget({
     required this.endDate,
@@ -51,7 +53,8 @@ class CountdownTimerWidget extends StatefulWidget {
     this.colonStyle,
     this.digitDecoration,
     this.hasColon = true,
-    this.format = 'dd HH:mm:ss',
+    this.displayField = 'dd,HH,mm,ss',
+    this.hideField = '',
     super.key,
   });
 
@@ -64,6 +67,16 @@ class _CountdownTimerWidgetState extends State<CountdownTimerWidget> {
   Timer? _timer;
   Duration _remainingTime = Duration.zero;
 
+  final daysDigitStart = 0;
+  final hoursDigitStart = 2;
+  final minutesDigitStart = 4;
+  final secondsDigitStart = 6;
+
+  String get _dayLabel => labels[0];
+  String get _hourLabel => labels[1];
+  String get _minuteLabel => labels[2];
+  String get _secondLabel => labels[3];
+
   @override
   void initState() {
     super.initState();
@@ -75,6 +88,108 @@ class _CountdownTimerWidgetState extends State<CountdownTimerWidget> {
   void dispose() {
     _timer?.cancel();
     super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: _buildTimeComponents(),
+    );
+  }
+
+  List<Widget> _buildTimeComponents() {
+    final List<String> digits = _getDigitsFromDuration(_remainingTime);
+    final Map<String, bool> formatConfig = _parseFormat();
+
+    final int days = _remainingTime.inDays;
+    final int hours = _remainingTime.inHours.remainder(24);
+    final int minutes = _remainingTime.inMinutes.remainder(60);
+
+    final bool hideDays = widget.hideField.contains('dd') && days == 0;
+    final bool hideHours = widget.hideField.contains('HH') && days == 0 && hours == 0;
+    final bool hideMinutes = widget.hideField.contains('mm') && days == 0 && hours == 0 && minutes == 0;
+
+    final bool showDays = formatConfig['showDays']! && !hideDays;
+    final bool showHours = formatConfig['showHours']! && !hideHours;
+    final bool showMinutes = formatConfig['showMinutes']! && !hideMinutes;
+    final bool showSeconds = formatConfig['showSeconds']!;
+
+    final List<Widget> activeComponents = [];
+
+    if (showDays) {
+      activeComponents.add(_buildDigitGroup(digits, daysDigitStart, label: _dayLabel));
+    }
+    if (showHours) {
+      activeComponents.add(_buildDigitGroup(digits, hoursDigitStart, label: _hourLabel));
+    }
+    if (showMinutes) {
+      activeComponents.add(_buildDigitGroup(digits, minutesDigitStart, label: _minuteLabel));
+    }
+    if (showSeconds) {
+      activeComponents.add(_buildDigitGroup(digits, secondsDigitStart, label: _secondLabel));
+    }
+
+    final List<Widget> timeComponents = [];
+    for (int i = 0; i < activeComponents.length; i++) {
+      timeComponents.add(activeComponents[i]);
+      if (widget.hasColon && i < activeComponents.length - 1) {
+        timeComponents.add(_buildColon());
+      }
+    }
+
+    return timeComponents;
+  }
+
+  Widget _buildDigitGroup(List<String> digits, int start, {required String label}) {
+    return Flexible(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(bottom: 8.0),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                _DigitBox(
+                  digit: digits[start],
+                  digitStyle: widget.digitStyle,
+                  digitDecoration: widget.digitDecoration,
+                ),
+                const SizedBox(width: 4),
+                _DigitBox(
+                  digit: digits[start + 1],
+                  digitStyle: widget.digitStyle,
+                  digitDecoration: widget.digitDecoration,
+                ),
+              ],
+            ),
+          ),
+          _LabelBox(label: label, labelStyle: widget.labelStyle),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildColon() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 6.0),
+          child: Text(
+            ':',
+            style: widget.colonStyle ?? const TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.bold),
+          ),
+        ),
+        const SizedBox(height: 12),
+        _LabelBox(label: '', labelStyle: widget.labelStyle),
+      ],
+    );
   }
 
   void _calculateRemainingTime() {
@@ -123,94 +238,13 @@ class _CountdownTimerWidgetState extends State<CountdownTimerWidget> {
   }
 
   Map<String, bool> _parseFormat() {
-    final String format = widget.format;
+    final String format = widget.displayField;
     return {
       'showDays': format.contains('dd'),
       'showHours': format.contains('HH'),
       'showMinutes': format.contains('mm'),
       'showSeconds': format.contains('ss'),
     };
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final List<String> digits = _getDigitsFromDuration(_remainingTime);
-    final Map<String, bool> formatConfig = _parseFormat();
-
-    Widget buildDigitGroup(int start, {required String label}) {
-      return Flexible(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  _DigitBox(
-                    digit: digits[start],
-                    digitStyle: widget.digitStyle,
-                    digitDecoration: widget.digitDecoration,
-                  ),
-                  const SizedBox(width: 4),
-                  _DigitBox(
-                    digit: digits[start + 1],
-                    digitStyle: widget.digitStyle,
-                    digitDecoration: widget.digitDecoration,
-                  ),
-                ],
-              ),
-            ),
-            _LabelBox(label: label, labelStyle: widget.labelStyle),
-          ],
-        ),
-      );
-    }
-
-    Widget buildColon() => Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 6.0),
-          child: Text(
-            ':',
-            style: widget.colonStyle ?? const TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.bold),
-          ),
-        ),
-        const SizedBox(height: 12),
-        _LabelBox(label: '', labelStyle: widget.labelStyle),
-      ],
-    );
-
-    List<Widget> timeComponents = [];
-
-    if (formatConfig['showDays']!) {
-      timeComponents.add(buildDigitGroup(0, label: labels[0]));
-      if (formatConfig['showHours']! || formatConfig['showMinutes']! || formatConfig['showSeconds']!) {
-        timeComponents.add(buildColon());
-      }
-    }
-
-    if (formatConfig['showHours']!) {
-      timeComponents.add(buildDigitGroup(2, label: labels[1]));
-      if (formatConfig['showMinutes']! || formatConfig['showSeconds']!) {
-        timeComponents.add(buildColon());
-      }
-    }
-
-    if (formatConfig['showMinutes']!) {
-      timeComponents.add(buildDigitGroup(4, label: labels[2]));
-      if (formatConfig['showSeconds']!) {
-        timeComponents.add(buildColon());
-      }
-    }
-
-    if (formatConfig['showSeconds']!) {
-      timeComponents.add(buildDigitGroup(6, label: labels[3]));
-    }
-
-    return Row(children: timeComponents);
   }
 }
 
