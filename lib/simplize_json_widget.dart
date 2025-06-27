@@ -15,14 +15,6 @@ class SimplizeJsonWidget extends StatefulWidget {
 class _SimplizeJsonWidgetState extends State<SimplizeJsonWidget> {
   @override
   void initState() {
-    DynamicWidgetBuilder.addParser(RootParser());
-    DynamicWidgetBuilder.addParser(CountdownWidgetParser());
-    DynamicWidgetBuilder.addParser(ButtonWidgetParser());
-    DynamicWidgetBuilder.addParser(ContainerWidgetParser());
-    DynamicWidgetBuilder.addParser(GestureDetectorWidgetParser());
-    DynamicWidgetBuilder.addParser(NetworkImageParser());
-    DynamicWidgetBuilder.addParser(AutoCloseButtonWidgetParser());
-    DynamicWidgetBuilder.addParser(SpacerWidgetParser());
     super.initState();
   }
 

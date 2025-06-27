@@ -1,5 +1,6 @@
 import 'package:dynamic_widget/dynamic_widget/widget/spacer_widget.dart';
 import 'package:dynamic_widget/dynamic_widget/widget/widget.dart';
+import 'package:dynamic_widget/simplize_json_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:dynamic_widget/dynamic_widget.dart';
@@ -42,39 +43,17 @@ class _DynamicWidgetExportState extends State<DynamicWidgetExport> {
     DynamicWidgetBuilder.addParser(SpacerWidgetParser());
 
     if (mounted) {
-      // rootBundle.loadString('lib/assets/json/countdown.json').then((value) {
-      //   Future.delayed(const Duration(seconds: 3), () async {
-      //     await _showDialog(value);
-      //   });
-      // });
+      rootBundle.loadString('lib/assets/json/countdown.json').then((value) {
+        Future.delayed(const Duration(seconds: 3), () async {
+          await _showDialog(value);
+        });
+      });
     }
 
     super.initState();
   }
 
   Future<void> _showDialog(String value) async {
-    // List<Effect> effects = [];
-    //     if (transition == TransitionType.slide) {
-    //       effects.add(
-    //         SlideEffect(
-    //           begin: _getBeginOffset(transitionFrom),
-    //           end: Offset.zero,
-    //           curve: Curves.easeOut,
-    //           duration: const Duration(milliseconds: 300),
-    //         ),
-    //       );
-    //     } else {
-    //       effects.add(const FadeEffect(curve: Curves.easeOut));
-    //     }
-    //     return Animate(
-    //       effects: effects,
-    //       child: GestureDetector(
-    //         onTap: () {
-    //           navigationService.pop();
-    //         },
-    //         child: SafeArea(child: popupWidget),
-    //       ),
-    //     );
     await showDialog(
       useRootNavigator: true,
       barrierColor: Colors.black.withValues(alpha: 0.4),
@@ -118,14 +97,14 @@ class _DynamicWidgetExportState extends State<DynamicWidgetExport> {
     }
   }
 
-  Future<void> _showModal() async {
+  Future<void> _showModal(String json) async {
     await showModalBottomSheet(
       context: context,
       isDismissible: true,
       useRootNavigator: true,
       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(16.0))),
       builder: (context) {
-        return Wrap(children: [_getWidget(true)]);
+        return SimplizeJsonWidget(jsonString: json, listener: DefaultClickListener(onClick: (String? url) {}));
       },
     );
   }

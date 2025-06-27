@@ -1,35 +1,101 @@
 {
-    "type": "Root",
-    "displayTime": 1000,
-    "mode": "modal",
-    "width": "76",
-    "height": "56",
-    "transition": "fade",
-    "transitionFrom": "top",
-    "borderRadius": "0,0,0,0",
-    "display": {
-      "full": false,
-      "position": "centerRight"
-    },
-    "child": {
-      "type": "Padding",
-      "padding": "0,0,20,0",
-      "child": {
+  "type": "Root",
+  "displayTime": 1000,
+  "transition": "fade",
+  "transitionFrom": "bottom",
+  "display": {
+    "position": "center",
+    "full": true
+  },
+  "child": {
+    "type": "Stack",
+    "clipBehavior": "none",
+    "children": [
+      {
+        "type": "NetworkImageWidget",
+        "imageUrl": "https://cdn.simplize.vn/test/app_popup_test/campaign_background_image.png"
+      },
+      {
         "type": "Column",
         "mainAxisAlignment": "start",
         "crossAxisAlignment": "end",
-        "mainAxisSize": "max",
         "children": [
           {
-            "type": "SizedBox",
-            "width": "56",
-            "height": "56",
+            "type": "ContainerWidget",
+            "alignment": "topLeft",
+            "margin": "0,12,8,0",
+            "padding": "12,6,12,6",
+            "color": "#F09933",
             "child": {
-              "type": "NetworkImageWidget",
-              "imageUrl": "https://static.simplize.vn/static/fe/imgs/pricing2.png"
+              "type": "ClipRRect",
+              "borderRadius": "12,12,12,12",
+              "clipBehavior": "hardEdge",
+              "child": {
+                "type": "AutoCloseButtonWidget",
+                "closeAfter": 1000,
+                "closeIcon": {
+                  "color": "#ffffff"
+                },
+                "textStyle": {
+                  "color": "#ffffff",
+                  "fontSize": 16
+                }
+              }
+            }
+          },
+          {
+            "type": "Padding",
+            "padding": "0,0,0,0",
+            "child": {
+              "type": "Column",
+              "crossAxisAlignment": "center",
+              "mainAxisAlignment": "end",
+              "children": [
+                {
+                  "type": "ContainerWidget",
+                  "alignment": "topLeft",
+                  "margin": "16,0,16,40",
+                  "padding": "0,0,0,0",
+                  "child": {
+                    "type": "ButtonWidget",
+                    "onClick": "https://simplize.vn/",
+                    "text": "Nhận quà ngay",
+                    "decoration": {
+                      "gradient": [
+                        "#F09933",
+                        "#BD6600"
+                      ],
+                      "borderRadius": "29,29,29,29"
+                    },
+                    "height": "56",
+                    "width": "expand",
+                    "textStyle": {
+                      "color": "#ffffff"
+                    }
+                  }
+                },
+                {
+                  "type": "ContainerWidget",
+                  "alignment": "topLeft",
+                  "margin": "0,0,0,32",
+                  "padding": "0,0,0,0",
+                  "child": {
+                    "type": "CountdownTimerWidget",
+                    "startDate": "18/06/2025 00:00:00",
+                    "endDate": "18/06/2025 00:00:00",
+                    "digitStyle": {
+                      "color": "#EC8000"
+                    },
+                    "labelStyle": {
+                      "color": "#FFFFFF"
+                    }
+                  }
+                }
+              ]
             }
           }
         ]
       }
-    }
+    ]
   }
+}

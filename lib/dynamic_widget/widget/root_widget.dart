@@ -14,7 +14,10 @@ class RootParser extends WidgetParser {
       width: (map['width'] as String?)?.getSizeFromString(),
       height: (map['height'] as String?)?.getSizeFromString(),
       alignment: (map['display']['position'] as String?)?.getAlignmentFromString(),
-      child: DynamicWidgetBuilder.buildFromMap(map['child'], buildContext, listener) ?? const SizedBox.shrink(),
+      child: RootModeInheritedWidget(
+        mode: map['mode'],
+        child: DynamicWidgetBuilder.buildFromMap(map['child'], buildContext, listener) ?? const SizedBox.shrink(),
+      ),
     );
   }
 
@@ -23,6 +26,22 @@ class RootParser extends WidgetParser {
 
   @override
   Type get widgetType => Root;
+}
+
+class RootModeInheritedWidget extends InheritedWidget {
+  RootModeInheritedWidget({
+    super.key,
+    required super.child,
+    required this.mode,
+  });
+  final String? mode;
+
+  bool get isModal => mode == 'modal';
+
+  @override
+  bool updateShouldNotify(covariant InheritedWidget oldWidget) {
+    return false;
+  }
 }
 
 class Root extends StatelessWidget {
@@ -35,8 +54,13 @@ class Root extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Align(
+      heightFactor: 1,
       alignment: alignment ?? Alignment.center,
-      child: SizedBox(height: height, width: width, child: child),
+      child: SizedBox(
+        height: height,
+        width: width,
+        child: child,
+      ),
     );
   }
 }

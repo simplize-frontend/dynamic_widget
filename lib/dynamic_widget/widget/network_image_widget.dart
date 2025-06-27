@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dynamic_widget/dynamic_widget.dart';
 import 'package:dynamic_widget/dynamic_widget/utils.dart';
+import 'package:dynamic_widget/dynamic_widget/widget/root_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -9,7 +10,7 @@ class NetworkImageParser extends WidgetParser {
   Widget parse(Map<String, dynamic> map, BuildContext buildContext, ClickListener? listener) {
     return NetworkImageWidget(
       imageUrl: map['imageUrl'],
-      fit: map.containsKey('fit') ? parseBoxFit(map['fit']) : null,
+      fit: map.containsKey('fit') ? parseBoxFit(map['fit']) : BoxFit.cover,
     );
   }
 
@@ -45,32 +46,35 @@ class _NetworkImageWidgetState extends State<NetworkImageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.sizeOf(context);
-    return CachedNetworkImage(
-      key: _key,
-      imageUrl: _url,
-      fit: widget.fit,
-      width: size.width,
-      height: size.height,
-      alignment: Alignment.center,
-      placeholder: (context, url) => const CupertinoActivityIndicator(),
-      errorWidget: (context, url, error) => Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(Icons.error),
-          SizedBox(height: 8),
-          Text("Đã có lỗi xảy ra"),
-          SizedBox(height: 16),
-          GestureDetector(
-            onTap: _retry,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [Text("Thử lại", style: TextStyle(fontSize: 12)), Icon(Icons.refresh, size: 14)],
+    final rootModeInheritedWidget = context.dependOnInheritedWidgetOfExactType<RootModeInheritedWidget>();
+    bool isModal = rootModeInheritedWidget?.isModal ?? false;
+    return LayoutBuilder(builder: (context, constraints) {
+      return CachedNetworkImage(
+        key: _key,
+        imageUrl: _url,
+        fit: widget.fit,
+        width: constraints.maxWidth,
+        height: isModal ? null : constraints.maxHeight,
+        alignment: Alignment.center,
+        placeholder: (context, url) => const CupertinoActivityIndicator(),
+        errorWidget: (context, url, error) => Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.error),
+            SizedBox(height: 8),
+            Text("Đã có lỗi xảy ra"),
+            SizedBox(height: 16),
+            GestureDetector(
+              onTap: _retry,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [Text("Thử lại", style: TextStyle(fontSize: 12)), Icon(Icons.refresh, size: 14)],
+              ),
             ),
-          ),
-        ],
-      ),
-    );
+          ],
+        ),
+      );
+    });
   }
 
   void _retry() {
