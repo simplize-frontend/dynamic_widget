@@ -1,12 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dynamic_widget/dynamic_widget.dart';
+import 'package:dynamic_widget/dynamic_widget/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class NetworkImageParser extends WidgetParser {
   @override
   Widget parse(Map<String, dynamic> map, BuildContext buildContext, ClickListener? listener) {
-    return NetworkImageWidget(imageUrl: map['imageUrl']);
+    return NetworkImageWidget(
+      imageUrl: map['imageUrl'],
+      fit: map.containsKey('fit') ? parseBoxFit(map['fit']) : null,
+    );
   }
 
   @override
@@ -22,10 +26,10 @@ class NetworkImageParser extends WidgetParser {
 }
 
 class NetworkImageWidget extends StatefulWidget {
-  const NetworkImageWidget({super.key, required this.imageUrl});
+  const NetworkImageWidget({super.key, required this.imageUrl, this.fit});
 
   final String imageUrl;
-
+  final BoxFit? fit;
   @override
   State<NetworkImageWidget> createState() => _NetworkImageWidgetState();
 }
@@ -45,7 +49,7 @@ class _NetworkImageWidgetState extends State<NetworkImageWidget> {
     return CachedNetworkImage(
       key: _key,
       imageUrl: _url,
-      fit: BoxFit.cover,
+      fit: widget.fit,
       width: size.width,
       height: size.height,
       alignment: Alignment.center,

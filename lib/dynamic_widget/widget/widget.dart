@@ -1,6 +1,6 @@
 export 'align_widget.dart';
 export 'auto_close_button_widget.dart';
-export 'background_image_widget.dart';
+export 'network_image_widget.dart';
 export 'button_widget.dart';
 export 'container_widget.dart';
 export 'countdown_timer_widget.dart';
