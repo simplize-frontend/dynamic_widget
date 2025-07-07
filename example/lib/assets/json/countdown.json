@@ -1,101 +1,83 @@
 {
+  "version": 2,
   "type": "Root",
   "displayTime": 1000,
+  "mode": "sticky",
+  "width": "100",
+  "height": "80",
   "transition": "fade",
-  "transitionFrom": "bottom",
+  "transitionFrom": "top",
+  "borderRadius": "0,0,0,0",
   "display": {
-    "position": "center",
-    "full": true
+    "full": false,
+    "position": "bottomRight"
   },
   "child": {
-    "type": "Stack",
-    "clipBehavior": "none",
-    "children": [
-      {
-        "type": "NetworkImageWidget",
-        "imageUrl": "https://cdn.simplize.vn/test/app_popup_test/campaign_background_image.png"
-      },
-      {
-        "type": "Column",
-        "mainAxisAlignment": "start",
-        "crossAxisAlignment": "end",
-        "children": [
-          {
-            "type": "ContainerWidget",
-            "alignment": "topLeft",
-            "margin": "0,12,8,0",
-            "padding": "12,6,12,6",
-            "color": "#F09933",
+    "type": "ContainerWidget",
+    "decoration": {
+      "margin": "0,0,0,0",
+      "padding": "0,0,0,0",
+      "borderRadius": "0,0,0,0"
+    },
+    "width": "expand",
+    "height": "80",
+    "child": {
+      "type": "Stack",
+      "alignment": "center",
+      "clipBehavior": "none",
+      "fit": "loose",
+      "children": [
+        {
+          "type": "GestureDetectorWidget",
+          "onClick": "https://simplize.vn/",
+          "child": {
+            "type": "AlignWidget",
+            "y": -1,
+            "start": -1,
             "child": {
-              "type": "ClipRRect",
-              "borderRadius": "12,12,12,12",
-              "clipBehavior": "hardEdge",
+              "type": "ContainerWidget",
+              "decoration": {
+                "margin": "0,0,0,0",
+                "padding": "0,0,0,0",
+                "borderRadius": "0,0,0,0"
+              },
+              "width": "80",
+              "height": "80",
               "child": {
-                "type": "AutoCloseButtonWidget",
-                "closeAfter": 1000,
-                "closeIcon": {
-                  "color": "#ffffff"
-                },
-                "textStyle": {
-                  "color": "#ffffff",
-                  "fontSize": 16
-                }
+                "type": "NetworkImageWidget",
+                "imageUrl": "https://static.simplize.vn/static/image/sale-30-dark.png",
+                "fit": "contain"
               }
             }
-          },
-          {
-            "type": "Padding",
-            "padding": "0,0,0,0",
+          }
+        },
+        {
+          "type": "GestureDetectorWidget",
+          "child": {
+            "type": "AlignWidget",
+            "y": -1,
+            "start": 0.5,
             "child": {
-              "type": "Column",
-              "crossAxisAlignment": "center",
-              "mainAxisAlignment": "end",
-              "children": [
-                {
-                  "type": "ContainerWidget",
-                  "alignment": "topLeft",
-                  "margin": "16,0,16,40",
-                  "padding": "0,0,0,0",
-                  "child": {
-                    "type": "ButtonWidget",
-                    "onClick": "https://simplize.vn/",
-                    "text": "Nhận quà ngay",
-                    "decoration": {
-                      "gradient": [
-                        "#F09933",
-                        "#BD6600"
-                      ],
-                      "borderRadius": "29,29,29,29"
-                    },
-                    "height": "56",
-                    "width": "expand",
-                    "textStyle": {
-                      "color": "#ffffff"
-                    }
-                  }
-                },
-                {
-                  "type": "ContainerWidget",
-                  "alignment": "topLeft",
-                  "margin": "0,0,0,32",
-                  "padding": "0,0,0,0",
-                  "child": {
-                    "type": "CountdownTimerWidget",
-                    "startDate": "18/06/2025 00:00:00",
-                    "endDate": "18/06/2025 00:00:00",
-                    "digitStyle": {
-                      "color": "#EC8000"
-                    },
-                    "labelStyle": {
-                      "color": "#FFFFFF"
-                    }
-                  }
-                }
-              ]
+              "type": "ContainerWidget",
+              "alignment": "center",
+              "decoration": {
+                "margin": "0,0,0,0",
+                "padding": "0,0,0,0",
+                "borderRadius": "8,8,8,8",
+                "color": "#BD6600"
+              },
+              "width": "16",
+              "height": "16",
+              "child": {
+                "type": "Icon",
+                "data": "close",
+                "color": "#ffffff",
+                "size": 16
+              }
             }
           }
-        ]
-      }
-    ]
+        }
+      ]
+    }
   }
 }

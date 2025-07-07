@@ -1,4 +1,6 @@
+import 'package:defer_pointer/defer_pointer.dart';
 import 'package:dynamic_widget/dynamic_widget/extension/box_decoration_extension.dart';
+import 'package:dynamic_widget/dynamic_widget/widget/root_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:dynamic_widget/dynamic_widget.dart';
 import 'package:dynamic_widget/dynamic_widget/extension/string_extension.dart';

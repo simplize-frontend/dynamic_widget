@@ -37,7 +37,7 @@ class RootModeInheritedWidget extends InheritedWidget {
   final String? mode;
 
   bool get isModal => mode == 'modal';
-
+  bool get isSticky => mode == 'sticky';
   @override
   bool updateShouldNotify(covariant InheritedWidget oldWidget) {
     return false;

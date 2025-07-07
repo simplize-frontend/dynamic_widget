@@ -30,7 +30,19 @@ class DynamicWidgetExport extends StatefulWidget {
   State<DynamicWidgetExport> createState() => _DynamicWidgetExportState();
 }
 
-class _DynamicWidgetExportState extends State<DynamicWidgetExport> {
+class _DynamicWidgetExportState extends State<DynamicWidgetExport> with TickerProviderStateMixin {
+  OverlayEntry? _overlayEntry;
+  final GlobalKey _stickyKey = GlobalKey();
+  Offset _initialOffset = const Offset(1, 1);
+  Offset? _currentOffset;
+  Offset? _panStartGlobalPosition;
+  Offset? _panStartWidgetPosition;
+
+  // Animation variables
+  late AnimationController _animationController;
+  Animation<Offset>? _offsetAnimation;
+  bool _isAnimating = false;
+
   @override
   void initState() {
     DynamicWidgetBuilder.addParser(RootParser());
@@ -42,10 +54,20 @@ class _DynamicWidgetExportState extends State<DynamicWidgetExport> {
     DynamicWidgetBuilder.addParser(AutoCloseButtonWidgetParser());
     DynamicWidgetBuilder.addParser(SpacerWidgetParser());
 
+    _animationController = AnimationController(duration: const Duration(milliseconds: 300), vsync: this);
     if (mounted) {
       rootBundle.loadString('lib/assets/json/countdown.json').then((value) {
         Future.delayed(const Duration(seconds: 3), () async {
-          await _showDialog(value);
+          _showStickyPopup(
+            SimplizeJsonWidget(
+              jsonString: value,
+              listener: DefaultClickListener(
+                onClick: (String? url) {
+                  print(url);
+                },
+              ),
+            ),
+          );
         });
       });
     }
@@ -109,6 +131,105 @@ class _DynamicWidgetExportState extends State<DynamicWidgetExport> {
     );
   }
 
+  void _showStickyPopup(SimplizeJsonWidget popupWidget) {
+    _overlayEntry = OverlayEntry(
+      builder: (context) {
+        return Positioned(
+          right: _currentOffset?.dx ?? _initialOffset.dx,
+          bottom: _currentOffset?.dy ?? _initialOffset.dy + 16,
+          child: GestureDetector(
+            onPanStart: (details) {
+              final RenderBox? renderBox = _stickyKey.currentContext?.findRenderObject() as RenderBox?;
+              if (renderBox == null) return;
+              // Store the initial global touch position and current widget position
+              _panStartGlobalPosition = details.globalPosition;
+              _panStartWidgetPosition = _currentOffset ?? _initialOffset;
+            },
+            onPanUpdate: (details) {
+              final RenderBox? renderBox = _stickyKey.currentContext?.findRenderObject() as RenderBox?;
+              if (renderBox == null || _panStartGlobalPosition == null || _panStartWidgetPosition == null) return;
+
+              // Stop any ongoing animation when user starts dragging
+              if (_isAnimating) {
+                _animationController.stop();
+                _isAnimating = false;
+                _offsetAnimation = null;
+              }
+
+              final screenSize = MediaQuery.sizeOf(context);
+              final widgetSize = renderBox.size;
+              // Calculate the movement delta from the start position
+              final deltaX = details.globalPosition.dx - _panStartGlobalPosition!.dx;
+              final deltaY = details.globalPosition.dy - _panStartGlobalPosition!.dy;
+              // Apply the delta to the initial widget position
+              final newRight = _panStartWidgetPosition!.dx - deltaX;
+              final newBottom = _panStartWidgetPosition!.dy - deltaY;
+              // Apply bounds checking to keep popup within screen
+              final clampedRight = newRight.clamp(0.0, screenSize.width - widgetSize.width);
+              final clampedBottom = newBottom.clamp(0.0, screenSize.height - widgetSize.height);
+              _currentOffset = Offset(clampedRight, clampedBottom);
+              _overlayEntry?.markNeedsBuild();
+            },
+            onPanEnd: (details) {
+              if (_stickyKey.currentContext == null || _currentOffset == null) return;
+              final screenSize = MediaQuery.sizeOf(context);
+              final widgetSize = _stickyKey.currentContext!.size!;
+              // Calculate actual widget position for snap logic
+              final actualWidgetX = screenSize.width - _currentOffset!.dx - widgetSize.width;
+              final widgetCenterX = actualWidgetX + widgetSize.width / 2;
+
+              // Determine target position based on which half of screen the center is in
+              final Offset targetOffset;
+              if (widgetCenterX < screenSize.width / 2) {
+                // Snap to left edge (right distance = screenWidth - 16 - widgetWidth)
+                targetOffset = Offset(screenSize.width - 16 - widgetSize.width, _currentOffset!.dy);
+              } else {
+                // Snap to right edge (right distance = 16)
+                targetOffset = Offset(_initialOffset.dx, _currentOffset!.dy);
+              }
+
+              // Animate to target position
+              _animateToPosition(targetOffset);
+
+              _panStartGlobalPosition = null; // Clear the pan start positions
+              _panStartWidgetPosition = null;
+            },
+            child: SizedBox(key: _stickyKey, child: popupWidget),
+          ),
+        );
+      },
+    );
+    Overlay.of(context).insert(_overlayEntry!);
+  }
+
+  void _animateToPosition(Offset targetOffset) {
+    if (_isAnimating) return;
+
+    final startOffset = _currentOffset ?? _initialOffset;
+    _isAnimating = true;
+
+    _offsetAnimation = Tween<Offset>(
+      begin: startOffset,
+      end: targetOffset,
+    ).animate(CurvedAnimation(parent: _animationController, curve: Curves.easeOutCubic));
+
+    _offsetAnimation!.addListener(() {
+      _currentOffset = _offsetAnimation!.value;
+      _overlayEntry?.markNeedsBuild();
+    });
+
+    _offsetAnimation!.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        _isAnimating = false;
+        _offsetAnimation?.removeListener(() {});
+        _offsetAnimation?.removeStatusListener((status) {});
+        _offsetAnimation = null;
+      }
+    });
+
+    _animationController.forward(from: 0);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -133,31 +254,7 @@ class _DynamicWidgetExportState extends State<DynamicWidgetExport> {
         },
       );
     }
-    return Root(
-      child: Stack(
-        children: [
-          Positioned(
-            top: 0,
-            right: 0,
-            child: GestureDetectorWidget(
-              onTap: () {
-                print("Close popup");
-              },
-              child: Padding(padding: const EdgeInsets.all(16.0), child: Icon(Icons.close, color: Colors.white)),
-            ),
-          ),
-          Positioned(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                CountdownTimerWidget(endDate: "09/06/2025 23:59:00", startDate: "18/06/2025 00:00:00"),
-                ButtonWidget(onPressed: () {}, text: "ABC"),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
+    return Placeholder();
   }
 
   Future<Widget>? _buildWidget(BuildContext context) async {

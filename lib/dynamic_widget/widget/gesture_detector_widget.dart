@@ -1,4 +1,5 @@
 import 'package:dynamic_widget/dynamic_widget.dart';
+import 'package:dynamic_widget/dynamic_widget/widget/root_widget.dart';
 import 'package:flutter/material.dart';
 
 class GestureDetectorWidgetParser extends WidgetParser {
@@ -27,6 +28,12 @@ class GestureDetectorWidget extends StatelessWidget {
   final Function()? onTap;
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(onTap: onTap, behavior: HitTestBehavior.translucent, child: child);
+    final rootModeInheritedWidget = context.dependOnInheritedWidgetOfExactType<RootModeInheritedWidget>();
+    bool isSticky = rootModeInheritedWidget?.isSticky ?? false;
+    return GestureDetector(
+      onTap: onTap,
+      behavior: isSticky ? HitTestBehavior.deferToChild : HitTestBehavior.translucent,
+      child: child,
+    );
   }
 }
