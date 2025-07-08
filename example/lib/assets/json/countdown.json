@@ -1,10 +1,11 @@
 {
-  "version": 2,
   "type": "Root",
   "displayTime": 1000,
   "mode": "sticky",
   "width": "100",
   "height": "80",
+  "viewWidth": "393",
+  "viewHeight": "850",
   "transition": "fade",
   "transitionFrom": "top",
   "borderRadius": "0,0,0,0",

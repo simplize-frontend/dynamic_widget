@@ -28,8 +28,8 @@ class GestureDetectorWidget extends StatelessWidget {
   final Function()? onTap;
   @override
   Widget build(BuildContext context) {
-    final rootModeInheritedWidget = context.dependOnInheritedWidgetOfExactType<RootModeInheritedWidget>();
-    bool isSticky = rootModeInheritedWidget?.isSticky ?? false;
+    final rootConfigInheritedWidget = context.dependOnInheritedWidgetOfExactType<RootConfigInheritedWidget>();
+    bool isSticky = rootConfigInheritedWidget?.isSticky ?? false;
     return GestureDetector(
       onTap: onTap,
       behavior: isSticky ? HitTestBehavior.deferToChild : HitTestBehavior.translucent,

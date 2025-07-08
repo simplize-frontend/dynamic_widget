@@ -58,16 +58,7 @@ class _DynamicWidgetExportState extends State<DynamicWidgetExport> with TickerPr
     if (mounted) {
       rootBundle.loadString('lib/assets/json/countdown.json').then((value) {
         Future.delayed(const Duration(seconds: 3), () async {
-          _showStickyPopup(
-            SimplizeJsonWidget(
-              jsonString: value,
-              listener: DefaultClickListener(
-                onClick: (String? url) {
-                  print(url);
-                },
-              ),
-            ),
-          );
+          _showDialog(value);
         });
       });
     }
@@ -232,14 +223,7 @@ class _DynamicWidgetExportState extends State<DynamicWidgetExport> with TickerPr
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: CountdownTimerWidget(
-        startDate: "26/06/2025 14:00:00",
-        endDate: "26/06/2025 14:02:00",
-        displayField: "dd,HH,mm,ss",
-      ),
-      backgroundColor: Colors.red,
-    );
+    return Scaffold(body: Placeholder(), backgroundColor: Colors.red);
   }
 
   Widget _getWidget(bool isJson) {

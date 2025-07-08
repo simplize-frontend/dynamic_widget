@@ -46,8 +46,8 @@ class _NetworkImageWidgetState extends State<NetworkImageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final rootModeInheritedWidget = context.dependOnInheritedWidgetOfExactType<RootModeInheritedWidget>();
-    bool isModal = rootModeInheritedWidget?.isModal ?? false;
+    final rootConfigInheritedWidget = context.dependOnInheritedWidgetOfExactType<RootConfigInheritedWidget>();
+    bool isModal = rootConfigInheritedWidget?.isModal ?? false;
     return LayoutBuilder(builder: (context, constraints) {
       return CachedNetworkImage(
         key: _key,
