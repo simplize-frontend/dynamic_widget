@@ -81,16 +81,16 @@ class _DynamicWidgetExportState extends State<DynamicWidgetExport> with TickerPr
                 duration: const Duration(milliseconds: 300),
               ),
             ],
-            child:
-                DynamicWidgetBuilder.build(
-                  value,
-                  context,
-                  DefaultClickListener(
-                    onClick: (String? url) {
-                      print(url);
-                    },
-                  ),
-                )!,
+            child: SimplizeJsonWidget(
+              listener: JsClickListener(
+                (String? url) {
+                  print(url);
+                },
+                mode: 'overlay',
+                onStickyClick: () {},
+              ),
+              jsonString: value,
+            ),
           ),
     );
   }
@@ -111,15 +111,15 @@ class _DynamicWidgetExportState extends State<DynamicWidgetExport> with TickerPr
   }
 
   Future<void> _showModal(String json) async {
-    await showModalBottomSheet(
-      context: context,
-      isDismissible: true,
-      useRootNavigator: true,
-      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(16.0))),
-      builder: (context) {
-        return SimplizeJsonWidget(jsonString: json, listener: DefaultClickListener(onClick: (String? url) {}));
-      },
-    );
+    // await showModalBottomSheet(
+    //   context: context,
+    //   isDismissible: true,
+    //   useRootNavigator: true,
+    //   shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(16.0))),
+    //   builder: (context) {
+    //     return SimplizeJsonWidget(jsonString: json, listener: JsClickListener(mode: 'modal', onStickyClick: () {}));
+    //   },
+    // );
   }
 
   void _showStickyPopup(SimplizeJsonWidget popupWidget) {

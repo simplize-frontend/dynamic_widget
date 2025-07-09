@@ -1,84 +1,244 @@
 {
-  "type": "Root",
-  "displayTime": 1000,
-  "mode": "sticky",
-  "width": "100",
-  "height": "80",
-  "viewWidth": "393",
-  "viewHeight": "850",
-  "transition": "fade",
-  "transitionFrom": "top",
-  "borderRadius": "0,0,0,0",
-  "display": {
-    "full": false,
-    "position": "bottomRight"
-  },
-  "child": {
-    "type": "ContainerWidget",
-    "decoration": {
-      "margin": "0,0,0,0",
-      "padding": "0,0,0,0",
-      "borderRadius": "0,0,0,0"
+    "viewWidth": "393",
+    "viewHeight": "850",
+    "type": "Root",
+    "mode": "overlay",
+    "displayTime": 10,
+    "transition": "fade",
+    "transitionFrom": "bottom",
+    "borderRadius": "0,0,0,0",
+    "display": {
+        "full": true,
+        "position": "center"
     },
-    "width": "expand",
-    "height": "80",
     "child": {
-      "type": "Stack",
-      "alignment": "center",
-      "clipBehavior": "none",
-      "fit": "loose",
-      "children": [
-        {
-          "type": "GestureDetectorWidget",
-          "onClick": "https://simplize.vn/",
-          "child": {
-            "type": "AlignWidget",
-            "y": -1,
-            "start": -1,
-            "child": {
-              "type": "ContainerWidget",
-              "decoration": {
-                "margin": "0,0,0,0",
-                "padding": "0,0,0,0",
-                "borderRadius": "0,0,0,0"
-              },
-              "width": "80",
-              "height": "80",
-              "child": {
+        "type": "Stack",
+        "clipBehavior": "none",
+        "alignment": "center",
+        "children": [
+            {
                 "type": "NetworkImageWidget",
-                "imageUrl": "https://static.simplize.vn/static/image/sale-30-dark.png",
-                "fit": "contain"
-              }
+                "imageUrl": "https://cdn.simplize.vn/test/app_popup_test/campaign_background_image.png",
+                "fit": "cover"
+            },
+            {
+                "type": "SafeArea",
+                "top": true,
+                "left": true,
+                "right": true,
+                "bottom": true,
+                "minimum": "0,0,0,0",
+                "child": {
+                    "type": "GestureDetectorWidget",
+                    "child": {
+                        "type": "Stack",
+                        "alignment": "center",
+                        "clipBehavior": "none",
+                        "fit": "expand",
+                        "children": [
+                            {
+                                "type": "AlignWidget",
+                                "y": -0.73,
+                                "start": 0,
+                                "child": {
+                                    "type": "Text",
+                                    "data": "SALE OFF",
+                                    "overflow": "ellipsis",
+                                    "textStyle": {
+                                        "fontFamily": "Inter",
+                                        "fontSize": 64,
+                                        "fontWeight": "w700",
+                                        "color": "#FFFFFF"
+                                    }
+                                }
+                            },
+                            {
+                                "type": "AlignWidget",
+                                "y": -0.53,
+                                "start": 0,
+                                "child": {
+                                    "type": "Text",
+                                    "data": "up to",
+                                    "overflow": "ellipsis",
+                                    "textStyle": {
+                                        "fontFamily": "Inter",
+                                        "fontSize": 18,
+                                        "fontWeight": "w700",
+                                        "color": "#A7ADB2"
+                                    }
+                                }
+                            },
+                            {
+                                "type": "AlignWidget",
+                                "y": -0.35,
+                                "start": 0,
+                                "child": {
+                                    "type": "SizedBox",
+                                    "width": "200",
+                                    "height": "110",
+                                    "child": {
+                                        "type": "NetworkImageWidget",
+                                        "fit": "fitWidth",
+                                        "imageUrl": "https://static.simplize.vn/static/campaign-sale/birthday 2025/40.png"
+                                    }
+                                }
+                            },
+                            {
+                                "type": "AlignWidget",
+                                "y": -0.88,
+                                "start": 0,
+                                "child": {
+                                    "type": "SizedBox",
+                                    "width": "280",
+                                    "height": "60",
+                                    "child": {
+                                        "type": "NetworkImageWidget",
+                                        "fit": "fitWidth",
+                                        "imageUrl": "https://static.simplize.vn/static/campaign-sale/birthday-01-06-2024/simplize-3-tuoi.png"
+                                    }
+                                }
+                            },
+                            {
+                                "type": "AlignWidget",
+                                "y": -0.08,
+                                "start": 0,
+                                "child": {
+                                    "type": "SizedBox",
+                                    "width": "300",
+                                    "height": "40",
+                                    "child": {
+                                        "type": "NetworkImageWidget",
+                                        "fit": "fitWidth",
+                                        "imageUrl": "https://static.simplize.vn/static/campaign-sale/birthday-01-06-2024/combo-web.png"
+                                    }
+                                }
+                            },
+                            {
+                                "type": "AlignWidget",
+                                "y": 0.2,
+                                "start": 0,
+                                "child": {
+                                    "type": "SizedBox",
+                                    "width": "300",
+                                    "height": "160",
+                                    "child": {
+                                        "type": "NetworkImageWidget",
+                                        "fit": "fitWidth",
+                                        "imageUrl": "https://static.simplize.vn/static/campaign-sale/birthday-01-06-2024/35.png"
+                                    }
+                                }
+                            },
+                            {
+                                "type": "AlignWidget",
+                                "y": 0.55,
+                                "start": 0,
+                                "child": {
+                                    "type": "SizedBox",
+                                    "width": "350",
+                                    "height": "90",
+                                    "child": {
+                                        "type": "CountdownTimerWidget",
+                                        "startDate": "09/07/2025 00:00:00",
+                                        "endDate": "10/07/2025 11:59:59",
+                                        "digitDecoration": {
+                                            "borderRadius": "8,8,8,8",
+                                            "color": "#f8f8f8"
+                                        },
+                                        "digitStyle": {
+                                            "fontFamily": "Inter",
+                                            "fontSize": 24,
+                                            "fontWeight": "w700",
+                                            "color": "#EC8000"
+                                        },
+                                        "labelStyle": {
+                                            "fontFamily": "Inter",
+                                            "fontSize": 12,
+                                            "fontWeight": "w600",
+                                            "color": "#FFFFFF"
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "type": "GestureDetectorWidget",
+                                "onClick": "https://simplize.vn/pricing",
+                                "child": {
+                                    "type": "AlignWidget",
+                                    "y": 0.8,
+                                    "start": 0,
+                                    "child": {
+                                        "type": "ButtonWidget",
+                                        "onClick": "https://simplize.vn/pricing",
+                                        "text": "Nhận quà ngay",
+                                        "textStyle": {
+                                            "fontFamily": "Inter",
+                                            "fontSize": 18,
+                                            "fontWeight": "w700",
+                                            "color": "#ffffff"
+                                        },
+                                        "width": "300",
+                                        "height": "56",
+                                        "decoration": {
+                                            "color": "#EC8000",
+                                            "borderRadius": "28,28,28,28",
+                                            "gradient": [
+                                                "#F09933",
+                                                "#BD6600"
+                                            ]
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "type": "GestureDetectorWidget",
+                                "onClick": "https://simplize.vn/pricing123",
+                                "child": {
+                                    "type": "AlignWidget",
+                                    "y": 0.9075166409559852,
+                                    "start": 0.02161593023601438,
+                                    "child": {
+                                        "type": "Text",
+                                        "data": "Thoát",
+                                        "overflow": "ellipsis",
+                                        "textStyle": {
+                                            "fontFamily": "Inter",
+                                            "fontSize": 18,
+                                            "fontWeight": "w600",
+                                            "color": "#E9EBEc"
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "type": "AlignWidget",
+                                "y": -1,
+                                "start": 1,
+                                "child": {
+                                    "type": "SizedBox",
+                                    "width": "auto",
+                                    "child": {
+                                        "type": "AutoCloseButtonWidget",
+                                        "closeAfter": 10,
+                                        "gap": "4",
+                                        "closeIcon": {
+                                            "type": "Icon",
+                                            "icon": "close",
+                                            "size": 8,
+                                            "color": "#FFFFFF"
+                                        },
+                                        "textStyle": {
+                                            "fontFamily": "Inter",
+                                            "fontSize": 14,
+                                            "fontWeight": "w400",
+                                            "color": "#FFFFFF"
+                                        }
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                }
             }
-          }
-        },
-        {
-          "type": "GestureDetectorWidget",
-          "child": {
-            "type": "AlignWidget",
-            "y": -1,
-            "start": 0.5,
-            "child": {
-              "type": "ContainerWidget",
-              "alignment": "center",
-              "decoration": {
-                "margin": "0,0,0,0",
-                "padding": "0,0,0,0",
-                "borderRadius": "8,8,8,8",
-                "color": "#BD6600"
-              },
-              "width": "16",
-              "height": "16",
-              "child": {
-                "type": "Icon",
-                "data": "close",
-                "color": "#ffffff",
-                "size": 16
-              }
-            }
-          }
-        }
-      ]
+        ]
     }
-  }
 }
