@@ -210,7 +210,7 @@
                                         "borderRadius": "28,28,28,28",
                                         "border": {
                                             "color": "#ff0000",
-                                            "width": "1.0"
+                                            "width": "1"
                                         }
                                     },
                                     "width": "300",

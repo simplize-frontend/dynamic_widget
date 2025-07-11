@@ -21,9 +21,10 @@ extension BoxDecorationX on BoxDecoration {
 
 extension BorderX on Border {
   static Border fromJson(Map<String, dynamic>? map) {
+    double _width = num.parse(map?['width'] ?? '0.0').toDouble();
     return Border.all(
       color: HexColor.fromHex(map?['color']),
-      width: double.parse(map?['width'] ?? '0.0'),
+      width: _width,
       style: BorderStyle.solid,
     );
   }
