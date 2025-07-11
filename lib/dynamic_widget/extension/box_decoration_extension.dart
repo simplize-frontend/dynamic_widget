@@ -21,10 +21,10 @@ extension BoxDecorationX on BoxDecoration {
 
 extension BorderX on Border {
   static Border fromJson(Map<String, dynamic>? map) {
-    double width = _parseDouble(map?['width']) ?? 0.0;
+    double _width = num.parse(map?['width'] as String? ?? '0.0').toDouble();
     return Border.all(
       color: HexColor.fromHex(map?['color']),
-      width: width,
+      width: _width,
       style: BorderStyle.solid,
     );
   }
@@ -45,7 +45,7 @@ extension GradientX on Gradient {
       case 'radial':
         return RadialGradient(
           colors: colors,
-          radius: _parseDouble(map?['radius']) ?? 0.5,
+          radius: double.parse(map?['radius'] ?? '0.5'),
           focal: (map?['focal'] as String?)?.getAlignmentFromString() ?? Alignment.center,
         );
 
@@ -63,27 +63,9 @@ extension BoxShadowX on BoxShadow {
   static BoxShadow fromJson(Map<String, dynamic> map) {
     return BoxShadow(
       color: HexColor.fromHex(map['color']),
-      blurRadius: _parseDouble(map['blurRadius']) ?? 0.0,
-      offset: Offset(
-        _parseDouble(map['offsetX']) ?? 0.0,
-        _parseDouble(map['offsetY']) ?? 0.0,
-      ),
-      spreadRadius: _parseDouble(map['spreadRadius']) ?? 0.0,
+      blurRadius: map['blurRadius'],
+      offset: Offset(map['offsetX'], map['offsetY']),
+      spreadRadius: map['spreadRadius'],
     );
   }
-}
-
-// Helper function to safely parse dynamic values to double
-double? _parseDouble(dynamic value) {
-  if (value == null) return null;
-  if (value is double) return value;
-  if (value is int) return value.toDouble();
-  if (value is String) {
-    try {
-      return double.parse(value);
-    } catch (e) {
-      return null;
-    }
-  }
-  return null;
 }
