@@ -32,24 +32,28 @@ extension BorderX on Border {
 extension GradientX on Gradient {
   static Gradient? fromJson(Map<String, dynamic>? map) {
     if (map?['colors'] == null) return null;
-
+    List<Color> colors = (map?['colors'] as List<dynamic>).map((e) => HexColor.fromHex(e as String)).toList();
     switch (map?['type']) {
       case 'linear':
         return LinearGradient(
-          colors: map?['colors'].map((e) => HexColor.fromHex(e)).toList(),
+          colors: colors,
           begin: (map?['begin'] as String?)?.getAlignmentFromString() ?? Alignment.centerLeft,
           end: (map?['end'] as String?)?.getAlignmentFromString() ?? Alignment.centerRight,
         );
 
       case 'radial':
         return RadialGradient(
-          colors: map?['colors'].map((e) => HexColor.fromHex(e)).toList(),
+          colors: colors,
           radius: double.parse(map?['radius'] ?? '0.5'),
           focal: (map?['focal'] as String?)?.getAlignmentFromString() ?? Alignment.center,
         );
 
       default:
-        return null;
+        return LinearGradient(
+          colors: colors,
+          begin: (map?['begin'] as String?)?.getAlignmentFromString() ?? Alignment.centerLeft,
+          end: (map?['end'] as String?)?.getAlignmentFromString() ?? Alignment.centerRight,
+        );
     }
   }
 }
