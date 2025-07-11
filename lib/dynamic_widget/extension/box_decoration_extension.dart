@@ -23,7 +23,7 @@ extension BorderX on Border {
   static Border fromJson(Map<String, dynamic>? map) {
     return Border.all(
       color: HexColor.fromHex(map?['color']),
-      width: map?['width'],
+      width: double.parse(map?['width'] ?? '0.0'),
       style: BorderStyle.solid,
     );
   }
